@@ -4,6 +4,16 @@
 > **Current Phase:** Phase 2 – REST API & Server Setup  
 > **Last Updated:** 26 October 2025
 
+
+### Table of Contents ###
+- [Phase 1 – Setup & Planning](#phase-1---setup--planning)
+- [Phase 2 – REST API & Server Setup](#phase-2---rest-api--server-setup)
+- [Phase 3 – Basic App With Server Connection](#phase-3---basic-app-with-server-connection)
+- [Phase 4 – Advanced Functions](#phase-4---advanced-functions)
+- [Phase 5 – Finalize Frontend](#phase-5---finalize-frontend)
+- [Tasks](#tasks)
+
+
 ### Phase 1 - Setup & Planning ###
 **Goal:** Prepare the repo, server, and domain for development
 
@@ -27,3 +37,8 @@ do said basic functions in Phase 2 through the app
 - [X] Create & finalize readme
 - [X] Connect to Ubuntu server via **PuTTY**
 - [X] Install dependencies for the server
+- [ ] Setup PostgreSQL database  
+- [ ] Implement REST API endpoints  
+- [ ] Test API routes locally  
+- [ ] Connect Kotlin app to backend  
+- [ ] Deploy live with HTTPS (Cloudflare)  

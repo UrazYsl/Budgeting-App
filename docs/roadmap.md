@@ -1,44 +1,48 @@
-> **Project:** Personal Budgeting App  
-> **Stack:** Kotlin (Android) + FastAPI (Python) + PostgreSQL + Ubuntu Server + Cloudflare Domain  
-> **Goal:** Build a full-stack budgeting app where my Android phone connects to my Ubuntu REST API server to track income, expenses, and categories in real time.
-> **Current Phase:** Phase 2 – REST API & Server Setup  
-> **Last Updated:** 26 October 2025
+# Budgeting App - Roadmap
 
+**Stack:** Kotlin (Android) + FastAPI (Python) + PostgreSQL  
+**Goal:** Track income and expenses on mobile, synced to your own server.
 
-### Table of Contents ###
-- [Phase 1 – Setup & Planning](#phase-1---setup--planning)
-- [Phase 2 – REST API & Server Setup](#phase-2---rest-api--server-setup)
-- [Phase 3 – Basic App With Server Connection](#phase-3---basic-app-with-server-connection)
-- [Phase 4 – Advanced Functions](#phase-4---advanced-functions)
-- [Phase 5 – Finalize Frontend](#phase-5---finalize-frontend)
-- [Tasks](#tasks)
+---
 
+## MVP Goal
 
-### Phase 1 - Setup & Planning ###
-**Goal:** Prepare the repo, server, and domain for development
+When done, you'll be able to:
+- Add/edit transactions (income & expenses)
+- Organize by accounts (cards, cash) and categories
+- See monthly summaries
+- View transaction history
 
-### Phase 2 - REST Api & Server Setup ###
-**Goal:** Get the server fully running, with all of the basic functions running
-inside of the server
+---
 
-### Phase 3 - Basic App With Server Connection ###
-**Goal:** Establish a connection between the server and the Android app which can
-do said basic functions in Phase 2 through the app
+## Current Focus: Backend Setup
 
-### Phase 4 - Advanced Functions ###
-**Goal:** Implement more advanced functions such as uploading documents, or being able to see my budgeting per month
+### Step 1: Get FastAPI Running
+- [X] Create FastAPI app (`main.py`)
+- [X] Add `/health` endpoint
+- [X] Run locally and see it working
 
-### Phase 5 - Finalize Frontend ###
-**Goal:** Finalize the frontend with a proper UI & UX, more reactive
+### Step 2: Database Connection
+- [ ] Install PostgreSQL (or use local/cloud)
+- [ ] Connect FastAPI to database
+- [ ] Test connection works
 
-### Tasks ###
-- [X] Create & finalize the outlines of the repo
-- [X] Add the directories
-- [X] Create & finalize readme
-- [X] Connect to Ubuntu server via **PuTTY**
-- [X] Install dependencies for the server
-- [ ] Setup PostgreSQL database  
-- [ ] Implement REST API endpoints  
-- [ ] Test API routes locally  
-- [ ] Connect Kotlin app to backend  
-- [ ] Deploy live with HTTPS (Cloudflare)  
+### Step 3: Database Models
+- [ ] Create User model
+- [ ] Create Account model
+- [ ] Create Category model
+- [ ] Create Transaction model
+
+### Step 4: One Simple Endpoint
+- [ ] Create endpoint to add a transaction (no auth yet)
+- [ ] Test it works
+- [ ] See data in database
+
+---
+
+## What's Next (Later)
+
+**Phase 3:** Add authentication (login/register)  
+**Phase 4:** More endpoints (accounts, categories CRUD)  
+**Phase 5:** Android app  
+**Phase 6:** Deploy to server

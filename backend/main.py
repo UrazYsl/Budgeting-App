@@ -1,23 +1,18 @@
-"""
-*Pip InstallRequirements:*
--fastapi[standart]
--uvicorn
+from fastapi import FastAPI, Depends
+from sqlalchemy.orm import Session
+from sqlalchemy import text
 
-You need to run the file from powershell(from the server later on)
-run: fastapi dev main.py
-"""
-from typing import Union
-
-from fastapi import FastAPI
+from database import SessionLocal
 
 app = FastAPI()
 
+def get_db():
+    db = SessionLocal()
+    try:
+        yield db
+    finally:
+        db.close()
 
-@app.get("/")
-def read_root():
-    return {"Hello": "World"}
-
-
-@app.get("/health")
-def read_health():
-    return {"status": "ok"}
+@app.get("/health/db")
+def db_health(db: Session = Depends(get_db)):
+    return {"ok": db.execute(text("select 1")).scalar_one() == 1}

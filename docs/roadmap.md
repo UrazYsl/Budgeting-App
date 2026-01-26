@@ -23,9 +23,9 @@ When done, you'll be able to:
 - [X] Run locally and see it working
 
 ### Step 2: Database Connection
-- [ ] Install PostgreSQL (or use local/cloud)
-- [ ] Connect FastAPI to database
-- [ ] Test connection works
+- [X] Install PostgreSQL (or use local/cloud)
+- [X] Connect FastAPI to database
+- [X] Test connection works
 
 ### Step 3: Database Models
 - [ ] Create User model

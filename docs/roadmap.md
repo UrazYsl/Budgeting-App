@@ -41,7 +41,7 @@ When done, you'll be able to:
 ---
 
 ## What's Next (Later)
-
+**Phase 2:** Create an initializer (Setup databases etc.)
 **Phase 3:** Add authentication (login/register)  
 **Phase 4:** More endpoints (accounts, categories CRUD)  
 **Phase 5:** Android app  

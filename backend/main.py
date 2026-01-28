@@ -4,6 +4,7 @@ from sqlalchemy import text
 from pydantic import BaseModel
 
 from database import SessionLocal
+from crud import create_item, read_items
 
 class Item(BaseModel):
     name: str
@@ -25,22 +26,10 @@ def db_health(db: Session = Depends(get_db)):
     return {"ok": db.execute(text("select 1")).scalar_one() == 1}
 
 @app.post("/items/")
-def create_item(item: Item, db: Session = Depends(get_db)):
-    query = text("""
-        INSERT INTO items (name, description, price, tax)
-        VALUES (:name, :description, :price, :tax)
-    """)
-
-    db.execute(
-        query,
-        {
-            "name": item.name,
-            "description": item.description,
-            "price": item.price,
-            "tax": item.tax,
-        }
-    )
-
-    db.commit()
-
+def create_item_endpoint(item: Item, db: Session = Depends(get_db)):
+    create_item(db, item)
     return {"status": "inserted"}
+
+@app.get("/items/all")
+def get_items_endpoint(db: Session = Depends(get_db)):
+    return read_items(db)

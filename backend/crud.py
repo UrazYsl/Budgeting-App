@@ -46,3 +46,25 @@ def read_matching(item, db: Session):
     )
     return result.mappings().all()
 
+#UPDATE
+def update_item(item_id: int, item, db: Session):
+    result = db.execute(
+        text("""
+            UPDATE items
+            SET name = :name,
+                description = :description,
+                price = :price,
+                tax = :tax
+            WHERE id = :id
+        """),
+        {
+            "id": item_id,
+            "name": item.name,
+            "description": item.description,
+            "price": item.price,
+            "tax": item.tax,
+        }
+    )
+
+    db.commit()
+    return result.rowcount

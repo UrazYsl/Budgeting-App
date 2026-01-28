@@ -33,22 +33,25 @@ When done, you'll be able to:
 - [X] Create a method to update content from table
 - [X] Create a method to delete content from table
 
-### Step 4: Database Models
-- [ ] Create User model
+### Step 4: Finalize Transaction Data Format
+- [ ] Finalize JSON format (what the Android app sends/receives)
+- [ ] Update Functions & table columns to match the finalized format
+
+### Step 5: Database Models
 - [ ] Create Account model
 - [ ] Create Category model
 - [ ] Create Transaction model
 
-### Step 5: One Simple Endpoint
-- [ ] Create endpoint to add a transaction (no auth yet)
-- [ ] Test it works
-- [ ] See data in database
+### Step 6: One Simple Endpoint
+- [X] Create endpoint to add a transaction (no auth yet)
+- [X] Test it works
+- [X] See data in database
 
 ---
 
 ## What's Next (Later)
 **Phase 2:** Create an initializer (Setup databases etc.)
-**Phase 3:** Add authentication (login/register)  
-**Phase 4:** More endpoints (accounts, categories CRUD)  
+**Phase 3:** More endpoints (accounts, categories CRUD)
+**Phase 4:** Automated tables(CRUD for tables)  
 **Phase 5:** Android app  
 **Phase 6:** Deploy to server

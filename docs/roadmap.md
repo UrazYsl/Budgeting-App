@@ -27,13 +27,19 @@ When done, you'll be able to:
 - [X] Connect FastAPI to database
 - [X] Test connection works
 
-### Step 3: Database Models
+### Step 3: Basic Transaction CRUD
+ - [X] Create a method to add to table
+ - [] Create a method to see table contents
+ - [] Create a method to update content from table
+ - [] Create a method to delete content from table
+
+### Step 4: Database Models
 - [ ] Create User model
 - [ ] Create Account model
 - [ ] Create Category model
 - [ ] Create Transaction model
 
-### Step 4: One Simple Endpoint
+### Step 5: One Simple Endpoint
 - [ ] Create endpoint to add a transaction (no auth yet)
 - [ ] Test it works
 - [ ] See data in database

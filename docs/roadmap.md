@@ -28,10 +28,10 @@ When done, you'll be able to:
 - [X] Test connection works
 
 ### Step 3: Basic Transaction CRUD
- - [X] Create a method to add to table
- - [] Create a method to see table contents
- - [] Create a method to update content from table
- - [] Create a method to delete content from table
+- [X] Create a method to add to table
+- [X] Create a method to read table contents
+- [] Create a method to update content from table
+- [] Create a method to delete content from table
 
 ### Step 4: Database Models
 - [ ] Create User model

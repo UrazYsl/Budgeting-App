@@ -31,7 +31,7 @@ When done, you'll be able to:
 - [X] Create a method to add to table
 - [X] Create a method to read table contents
 - [X] Create a method to update content from table
-- [] Create a method to delete content from table
+- [X] Create a method to delete content from table
 
 ### Step 4: Database Models
 - [ ] Create User model

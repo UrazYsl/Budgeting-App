@@ -68,3 +68,16 @@ def update_item(item_id: int, item, db: Session):
 
     db.commit()
     return result.rowcount
+
+#DELETE
+def delete_item(item_id: int, db: Session):
+    result = db.execute(
+        text(f"""
+            DELETE FROM items
+            WHERE id = :id;
+        """),
+        {"id": item_id}
+    )
+
+    db.commit()
+    return result.rowcount

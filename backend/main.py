@@ -4,7 +4,7 @@ from sqlalchemy import text
 from pydantic import BaseModel
 
 from database import SessionLocal
-from crud import create_item, read_items, read_matching, update_item
+from crud import *
 
 class Item(BaseModel):
     name: str
@@ -45,3 +45,10 @@ def update_endpoint(
     db: Session = Depends(get_db)
 ):
     return update_item(item_id, item, db)
+
+@app.delete("/items/{item_id}")
+def delete_endpoint(
+    item_id: int,
+    db: Session = Depends(get_db)
+):
+    return delete_item(item_id, db)

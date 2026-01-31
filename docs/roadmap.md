@@ -34,7 +34,7 @@ When done, you'll be able to:
 - [X] Create a method to delete content from table
 
 ### Step 4: Finalize Transaction Data Format
-- [ ] Finalize JSON format (what the Android app sends/receives)
+- [X] Finalize JSON format (what the Android app sends/receives)
 - [ ] Update Functions & table columns to match the finalized format
 
 ### Step 5: Database Models

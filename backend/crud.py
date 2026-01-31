@@ -3,19 +3,17 @@ from sqlalchemy import text
 
 
 #CREATE
-def create_item(db: Session, item):
+def create_item(item, db: Session):
     query = text("""
-        INSERT INTO items (name, description, price, tax)
-        VALUES (:name, :description, :price, :tax)
+        INSERT INTO items (name, price)
+        VALUES (:name, :price)
     """)
 
     db.execute(
         query,
         {
             "name": item.name,
-            "description": item.description,
-            "price": item.price,
-            "tax": item.tax,
+            "price": item.price
         }
     )
 
@@ -33,15 +31,11 @@ def read_matching(item, db: Session):
             SELECT *
             FROM items
             WHERE name = :name
-              AND description IS NOT DISTINCT FROM :description
               AND price = :price
-              AND tax IS NOT DISTINCT FROM :tax
         """),
         {
             "name": item.name,
-            "description": item.description,
-            "price": item.price,
-            "tax": item.tax,
+            "price": item.price
         }
     )
     return result.mappings().all()
@@ -52,17 +46,13 @@ def update_item(item_id: int, item, db: Session):
         text("""
             UPDATE items
             SET name = :name,
-                description = :description,
-                price = :price,
-                tax = :tax
+                price = :price
             WHERE id = :id
         """),
         {
             "id": item_id,
             "name": item.name,
-            "description": item.description,
-            "price": item.price,
-            "tax": item.tax,
+            "price": item.price
         }
     )
 
@@ -72,7 +62,7 @@ def update_item(item_id: int, item, db: Session):
 #DELETE
 def delete_item(item_id: int, db: Session):
     result = db.execute(
-        text(f"""
+        text("""
             DELETE FROM items
             WHERE id = :id;
         """),

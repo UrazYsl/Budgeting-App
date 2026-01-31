@@ -8,9 +8,7 @@ from crud import *
 
 class Item(BaseModel):
     name: str
-    description: str | None = None
     price: float
-    tax: float | None = None
 
 app = FastAPI()
 
@@ -27,7 +25,7 @@ def db_health(db: Session = Depends(get_db)):
 
 @app.post("/items/create")
 def create_item_endpoint(item: Item, db: Session = Depends(get_db)):
-    create_item(db, item)
+    create_item(item, db)
     return {"status": "inserted"}
 
 @app.get("/items/read_all")

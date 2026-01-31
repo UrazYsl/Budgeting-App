@@ -35,7 +35,7 @@ When done, you'll be able to:
 
 ### Step 4: Finalize Transaction Data Format
 - [X] Finalize JSON format (what the Android app sends/receives)
-- [ ] Update Functions & table columns to match the finalized format
+- [X] Update Functions & table columns to match the finalized format
 
 ### Step 5: Database Models
 - [ ] Create Account model

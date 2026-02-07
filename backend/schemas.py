@@ -29,7 +29,7 @@ class TransactionCreate(BaseModel):
     recurring_interval: Interval | None = None
 
     @model_validator(mode="after")
-    def check_recurring(self):
+    def recurring_rules(self):
         if self.recurring and self.recurring_interval is None:
             raise ValueError("recurring_interval is required when recurring=True")
         if not self.recurring and self.recurring_interval is not None:

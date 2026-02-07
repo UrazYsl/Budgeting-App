@@ -38,9 +38,9 @@ When done, you'll be able to:
 - [X] Update Functions & table columns to match the finalized format
 
 ### Step 5: Database Models
-- [ ] Create Account model
-- [ ] Create Category model
-- [ ] Create Transaction model
+- [X] Create Account model
+- [X] Create Category model
+- [X] Create Transaction model
 
 ### Step 6: One Simple Endpoint
 - [X] Create endpoint to add a transaction (no auth yet)

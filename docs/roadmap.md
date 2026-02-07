@@ -59,8 +59,8 @@ Create a repeatable way to set up the database and tables so the app (and new en
 - [X] Verify `accounts`, `categories`, and `transactions` tables exist in PostgreSQL
 
 ### Step 2: Add an initializer entry point
-- [ ] Add a script or CLI command (e.g. `python -m backend.init_db` or `init_db.py`) that creates all tables
-- [ ] Document in README how to run it (e.g. "Run once before first use" or "Run after cloning")
+- [X] Add a script or CLI command (e.g. `python -m backend.init_db` or `init_db.py`) that creates all tables
+- [X] Document in README how to run it (e.g. "Run once before first use" or "Run after cloning")
 
 ### Step 3: (Optional) Ensure database exists
 - [ ] Document that the PostgreSQL database must exist (e.g. created manually or via `createdb`)

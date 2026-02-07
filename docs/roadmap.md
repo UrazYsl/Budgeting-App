@@ -15,7 +15,7 @@ When done, you'll be able to:
 
 ---
 
-## Current Focus: Backend Setup
+## Phase 1: Backend Setup (Complete)
 
 ### Step 1: Get FastAPI Running
 - [X] Create FastAPI app (`main.py`)

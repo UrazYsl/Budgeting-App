@@ -1,21 +1,30 @@
 # Budgeting-App
-A full-stack personal budgeting app with a FastAPI backend hosted on an Ubuntu server and a Flutter Android client. Tracks expenses, income, and category-based summaries with secure REST APIs and a clean mobile UI.
 
-Stack: Kotlin, FastAPI, PostgreSQL, Ubuntu
+A full-stack personal budgeting app with a FastAPI backend and an Android client (Kotlin). Tracks income, expenses, accounts, and categories with REST APIs and sync to your own server.
 
-Python Packages:
+**Stack:** Kotlin (Android), FastAPI (Python), PostgreSQL
+
+## Status
+
+- **Phase 1 (Backend setup):** ✓ Complete — FastAPI app, DB connection, CRUD, schemas, database models (Account, Category, Transaction), and transaction endpoint.
+- **Next:** Phase 2 — Initializer (setup databases, create tables). See [docs/roadmap.md](docs/roadmap.md) for the full plan.
+
+## Python packages
+
 - fastapi
 - uvicorn
 - sqlalchemy
 - psycopg[binary]
 
-## Running the Backend (Development)
+## Running the backend (development)
 
-1. Create a virtual environment (recommended)
-2. Install dependencies
-3. Run the FastAPI server:
+1. Create a virtual environment (recommended).
+2. Install dependencies.
+3. From the `backend` directory, run:
 
 ```bash
+cd backend
 uvicorn main:app --reload
+```
 
-See [`docs/roadmap.md`](docs/roadmap.md) for the development plan.
+See [docs/roadmap.md](docs/roadmap.md) for the full development plan.

@@ -63,8 +63,8 @@ Create a repeatable way to set up the database and tables so the app (and new en
 - [X] Document in README how to run it (e.g. "Run once before first use" or "Run after cloning")
 
 ### Step 3: (Optional) Ensure database exists
-- [ ] Document that the PostgreSQL database must exist (e.g. created manually or via `createdb`)
-- [ ] Optionally: add a small script that creates the database if it does not exist (using settings from `local_settings`)
+- [X] Document that the PostgreSQL database must exist (e.g. created manually or via `createdb`)
+- [X] Optionally: add a small script that creates the database if it does not exist (using settings from `local_settings`)
 
 ### Step 4: (Optional) Seed or migrate
 - [ ] If needed: seed default data (e.g. default categories) in the initializer or a separate seed script

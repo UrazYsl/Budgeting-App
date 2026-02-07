@@ -1,14 +1,10 @@
 from fastapi import FastAPI, Depends
 from sqlalchemy.orm import Session
 from sqlalchemy import text
-from pydantic import BaseModel
 
 from database import SessionLocal
 from crud import *
-
-class Item(BaseModel):
-    name: str
-    price: float
+from schemas import Item
 
 app = FastAPI()
 

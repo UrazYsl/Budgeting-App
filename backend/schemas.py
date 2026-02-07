@@ -1,6 +1,6 @@
 from datetime import date
 from enum import Enum
-from pydantic import BaseModel, Field, model_validator
+from pydantic import BaseModel, ConfigDict, Field
 
 class Interval(str, Enum):
     daily = "daily"
@@ -12,12 +12,14 @@ class AccountCreate(BaseModel):
     name: str
 
 class AccountOut(AccountCreate):
+    model_config = ConfigDict(from_attributes=True)
     id: int
 
 class CategoryCreate(BaseModel):
     name: str
 
 class CategoryOut(CategoryCreate):
+    model_config = ConfigDict(from_attributes=True)
     id: int
 
 class TransactionCreate(BaseModel):
@@ -25,16 +27,18 @@ class TransactionCreate(BaseModel):
     amount: float = Field(gt=0)
     account_id: int
     category_id: int
-    recurring: bool = False
-    recurring_interval: Interval | None = None
-
-    @model_validator(mode="after")
-    def recurring_rules(self):
-        if self.recurring and self.recurring_interval is None:
-            raise ValueError("recurring_interval is required when recurring=True")
-        if not self.recurring and self.recurring_interval is not None:
-            raise ValueError("recurring_interval must be None when recurring=False")
-        return self
 
 class TransactionOut(TransactionCreate):
+    model_config = ConfigDict(from_attributes=True)
+    id: int
+
+class RecurringTransactionCreate(BaseModel):
+    amount: float = Field(gt=0)
+    recurring_interval: Interval
+    next_run_date: date
+    account_id: int
+    category_id: int
+
+class RecurringTransactionOut(RecurringTransactionCreate):
+    model_config = ConfigDict(from_attributes=True)
     id: int

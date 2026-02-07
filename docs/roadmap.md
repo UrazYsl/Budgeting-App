@@ -54,9 +54,9 @@ When done, you'll be able to:
 Create a repeatable way to set up the database and tables so the app (and new environments) can run reliably.
 
 ### Step 1: Create tables from models
-- [ ] Import `Base` and all models where metadata is registered
-- [ ] Call `Base.metadata.create_all(bind=engine)` (e.g. in a script or at app startup)
-- [ ] Verify `accounts`, `categories`, and `transactions` tables exist in PostgreSQL
+- [X] Import `Base` and all models where metadata is registered
+- [X] Call `Base.metadata.create_all(bind=engine)` (e.g. in a script or at app startup)
+- [X] Verify `accounts`, `categories`, and `transactions` tables exist in PostgreSQL
 
 ### Step 2: Add an initializer entry point
 - [ ] Add a script or CLI command (e.g. `python -m backend.init_db` or `init_db.py`) that creates all tables

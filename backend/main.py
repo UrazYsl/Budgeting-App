@@ -1,6 +1,7 @@
 from fastapi import FastAPI, Depends, HTTPException
 from sqlalchemy.orm import Session
 from sqlalchemy import text
+from contextlib import asynccontextmanager
 
 from database import SessionLocal
 import crud
@@ -8,9 +9,18 @@ from schemas import (
     AccountCreate, AccountOut,
     CategoryCreate, CategoryOut,
     TransactionCreate, TransactionOut,
+    RecurringTransactionCreate, RecurringTransactionOut,
 )
+from init import init_db
 
-app = FastAPI()
+
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    init_db()
+    yield
+
+
+app = FastAPI(lifespan=lifespan)
 
 def get_db():
     db = SessionLocal()
@@ -18,6 +28,7 @@ def get_db():
         yield db
     finally:
         db.close()
+
 
 @app.get("/health/db")
 def db_health(db: Session = Depends(get_db)):
@@ -69,4 +80,20 @@ def delete_transaction_endpoint(tx_id: int, db: Session = Depends(get_db)):
     deleted = crud.delete_transaction(tx_id, db)
     if deleted == 0:
         raise HTTPException(status_code=404, detail="Transaction not found")
+    return {"deleted": deleted}
+
+
+@app.post("/recurring_transactions", response_model=RecurringTransactionOut)
+def create_recurring_transaction_endpoint(rtx: RecurringTransactionCreate, db: Session = Depends(get_db)):
+    return crud.create_recurring_transaction(rtx, db)
+
+@app.get("/recurring_transactions", response_model=list[RecurringTransactionOut])
+def read_recurring_transactions_endpoint(db: Session = Depends(get_db)):
+    return crud.read_recurring_transactions(db)
+
+@app.delete("/recurring_transactions/{rtx_id}")
+def delete_recurring_transaction_endpoint(rtx_id: int, db: Session = Depends(get_db)):
+    deleted = crud.delete_recurring_transaction(rtx_id, db)
+    if deleted == 0:
+        raise HTTPException(status_code=404, detail="Recurring transaction not found")
     return {"deleted": deleted}

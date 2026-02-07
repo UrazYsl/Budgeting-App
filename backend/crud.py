@@ -58,19 +58,15 @@ def delete_category(category_id: int, db: Session):
 def create_transaction(tx, db: Session):
     result = db.execute(
         text("""
-            INSERT INTO transactions
-                (date, amount, account_id, category_id, recurring, recurring_interval)
-            VALUES
-                (:date, :amount, :account_id, :category_id, :recurring, :recurring_interval)
-            RETURNING id, date, amount, account_id, category_id, recurring, recurring_interval
+            INSERT INTO transactions (date, amount, account_id, category_id)
+            VALUES (:date, :amount, :account_id, :category_id)
+            RETURNING id, date, amount, account_id, category_id
         """),
         {
             "date": tx.date,
             "amount": tx.amount,
             "account_id": tx.account_id,
             "category_id": tx.category_id,
-            "recurring": tx.recurring,
-            "recurring_interval": tx.recurring_interval,
         },
     )
     db.commit()
@@ -79,7 +75,7 @@ def create_transaction(tx, db: Session):
 def read_transactions(db: Session):
     result = db.execute(
         text("""
-            SELECT id, date, amount, account_id, category_id, recurring, recurring_interval
+            SELECT id, date, amount, account_id, category_id
             FROM transactions
             ORDER BY date DESC, id DESC
         """)
@@ -90,6 +86,44 @@ def delete_transaction(tx_id: int, db: Session):
     result = db.execute(
         text("DELETE FROM transactions WHERE id = :id"),
         {"id": tx_id},
+    )
+    db.commit()
+    return result.rowcount
+
+
+def create_recurring_transaction(rtx, db: Session):
+    result = db.execute(
+        text("""
+            INSERT INTO recurring_transactions
+                (amount, recurring_interval, next_run_date, account_id, category_id)
+            VALUES (:amount, :recurring_interval, :next_run_date, :account_id, :category_id)
+            RETURNING id, amount, recurring_interval, next_run_date, account_id, category_id
+        """),
+        {
+            "amount": rtx.amount,
+            "recurring_interval": rtx.recurring_interval.value,
+            "next_run_date": rtx.next_run_date,
+            "account_id": rtx.account_id,
+            "category_id": rtx.category_id,
+        },
+    )
+    db.commit()
+    return result.mappings().one()
+
+def read_recurring_transactions(db: Session):
+    result = db.execute(
+        text("""
+            SELECT id, amount, recurring_interval, next_run_date, account_id, category_id
+            FROM recurring_transactions
+            ORDER BY next_run_date ASC, id ASC
+        """)
+    )
+    return result.mappings().all()
+
+def delete_recurring_transaction(rtx_id: int, db: Session):
+    result = db.execute(
+        text("DELETE FROM recurring_transactions WHERE id = :id"),
+        {"id": rtx_id},
     )
     db.commit()
     return result.rowcount

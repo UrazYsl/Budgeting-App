@@ -1,6 +1,4 @@
-from sqlalchemy import (
-    Column, Integer, String, Date, Float, Boolean, ForeignKey, text
-)
+from sqlalchemy import Column, Integer, String, Date, Float, ForeignKey
 from sqlalchemy.orm import declarative_base, relationship
 
 Base = declarative_base()
@@ -19,6 +17,12 @@ class Account(Base):
         cascade="all, delete",
         passive_deletes=True,
     )
+    recurring_transactions = relationship(
+        "RecurringTransaction",
+        back_populates="account",
+        cascade="all, delete",
+        passive_deletes=True,
+    )
 
 
 class Category(Base):
@@ -29,6 +33,11 @@ class Category(Base):
 
     transactions = relationship(
         "Transaction",
+        back_populates="category",
+        passive_deletes=True,
+    )
+    recurring_transactions = relationship(
+        "RecurringTransaction",
         back_populates="category",
         passive_deletes=True,
     )
@@ -58,8 +67,31 @@ class Transaction(Base):
         index=True,
     )
 
-    recurring = Column(Boolean, nullable=False, server_default=text("false"))
-    recurring_interval = Column(String, nullable=True)
-
     account = relationship("Account", back_populates="transactions")
     category = relationship("Category", back_populates="transactions")
+
+
+class RecurringTransaction(Base):
+    """Schedule: job copies these into transactions on next_run_date."""
+    __tablename__ = "recurring_transactions"
+
+    id = Column(Integer, primary_key=True, index=True)
+    amount = Column(Float, nullable=False)
+    recurring_interval = Column(String, nullable=False)  # daily, weekly, monthly, yearly
+    next_run_date = Column(Date, nullable=False)
+
+    account_id = Column(
+        Integer,
+        ForeignKey("accounts.id", ondelete="CASCADE"),
+        nullable=False,
+        index=True,
+    )
+    category_id = Column(
+        Integer,
+        ForeignKey("categories.id", ondelete="CASCADE"),
+        nullable=False,
+        index=True,
+    )
+
+    account = relationship("Account", back_populates="recurring_transactions")
+    category = relationship("Category", back_populates="recurring_transactions")

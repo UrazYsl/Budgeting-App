@@ -49,9 +49,33 @@ When done, you'll be able to:
 
 ---
 
+## Phase 2: Database Initializer (Current Focus)
+
+Create a repeatable way to set up the database and tables so the app (and new environments) can run reliably.
+
+### Step 1: Create tables from models
+- [ ] Import `Base` and all models where metadata is registered
+- [ ] Call `Base.metadata.create_all(bind=engine)` (e.g. in a script or at app startup)
+- [ ] Verify `accounts`, `categories`, and `transactions` tables exist in PostgreSQL
+
+### Step 2: Add an initializer entry point
+- [ ] Add a script or CLI command (e.g. `python -m backend.init_db` or `init_db.py`) that creates all tables
+- [ ] Document in README how to run it (e.g. "Run once before first use" or "Run after cloning")
+
+### Step 3: (Optional) Ensure database exists
+- [ ] Document that the PostgreSQL database must exist (e.g. created manually or via `createdb`)
+- [ ] Optionally: add a small script that creates the database if it does not exist (using settings from `local_settings`)
+
+### Step 4: (Optional) Seed or migrate
+- [ ] If needed: seed default data (e.g. default categories) in the initializer or a separate seed script
+- [ ] For later: plan for migrations (e.g. Alembic) when you change table schemas
+
+---
+
 ## What's Next (Later)
-**Phase 2:** Create an initializer (Setup databases etc.)
-**Phase 3:** More endpoints (accounts, categories CRUD)
-**Phase 4:** Automated tables(CRUD for tables)  
-**Phase 5:** Android app  
-**Phase 6:** Deploy to server
+|    Phase    | Description                                |
+|-------------|--------------------------------------------|
+| **Phase 3** | More endpoints (accounts, categories CRUD) |
+| **Phase 4** | Automated tables (CRUD for tables)         |
+| **Phase 5** | Android app                                |
+| **Phase 6** | Deploy to server                           |

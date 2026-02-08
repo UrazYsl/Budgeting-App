@@ -22,6 +22,17 @@ A full-stack personal budgeting app with a FastAPI backend and an Android client
 - Docker must be running before executing `docker compose up`
 - You do not need to log into Docker or create any database manually. 
 
+If you get:
+permission denied while trying to connect to the Docker daemon socket
+
+Run:
+
+sudo usermod -aG docker $USER
+newgrp docker
+
+Or log out and log back in.
+
+
 ## Environment Configuration
 
 The project uses a `.env` file for database configuration.

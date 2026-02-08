@@ -9,8 +9,7 @@ venv/
 env/
 
 # Environment / secrets
-.env
-local_settings.py
+
 
 # Logs
 *.log

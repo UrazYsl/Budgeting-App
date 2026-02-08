@@ -1,6 +1,6 @@
 """
 This script ensures that the database tables are created.
-It is another way to initialize the database manually.
+It is another way to initialize the tables manually.
 """
 from init import init_db
 

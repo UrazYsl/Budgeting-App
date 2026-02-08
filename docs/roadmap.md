@@ -69,8 +69,8 @@ Create a repeatable way to set up the database and tables so the app (and new en
 ### Step 4: Docker Containerization
 - [X] Add docker-compose.yml
 - [X] Add backend Dockerfile
-- [ ] Configure Postgres container
-- [ ] Verify stack runs with one command
+- [X] Configure Postgres container
+- [X] Verify stack runs with one command
 
 ### Step 5: Seed or migrate
 - [ ] If needed: seed default data (e.g. default categories) in the initializer or a separate seed script

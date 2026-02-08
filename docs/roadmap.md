@@ -68,7 +68,7 @@ Create a repeatable way to set up the database and tables so the app (and new en
 
 ### Step 4: Docker Containerization
 - [X] Add docker-compose.yml
-- [ ] Add backend Dockerfile
+- [X] Add backend Dockerfile
 - [ ] Configure Postgres container
 - [ ] Verify stack runs with one command
 

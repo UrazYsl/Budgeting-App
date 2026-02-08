@@ -2,12 +2,12 @@
 
 A full-stack personal budgeting app with a FastAPI backend and an Android client (Kotlin). Tracks income, expenses, accounts, and categories with REST APIs and sync to your own server.
 
-**Stack:** Kotlin (Android), FastAPI (Python), PostgreSQL
+**Stack:** Kotlin (Android), FastAPI (Python), PostgreSQL, Docker
 
 ## Status
 
 - **Phase 1 (Backend setup):** Complete — FastAPI app, DB connection, CRUD, schemas, database models (Account, Category, Transaction), and transaction endpoint.
-- **Next:** Phase 2 — Initializer (setup databases, create tables). See [docs/roadmap.md](docs/roadmap.md) for the full plan.
+- **Phase 2 (Environment & Initialization):** Docker integration and reproducible database setup.
 
 ## Python packages
 
@@ -18,57 +18,40 @@ A full-stack personal budgeting app with a FastAPI backend and an Android client
 
 
 ## Prerequisites
+- Docker Desktop (Windows/macOS) or Docker Engine (Linux)
+- Docker must be running before executing `docker compose up`
 
-Before running the backend, ensure the following are installed:
 
-- Python 3.10+
-- PostgreSQL (server running locally)
+### Run the full stack
 
-You can verify PostgreSQL is installed by running:
-
-```bash
-psql --version
-```
-
-## Create the Database
-
-Currently, the PostgreSQL database must be created manually:
+From the project root:
 
 ```bash
-createdb budgeting_app
+docker compose up --build
 ```
+This will:
+- Start a PostgreSQL container
+- Build and start the FastAPI backend
+- Automatically create the database tables
 
-## Database Setup
+### API Docs
+http://127.0.0.1:8000/docs
 
-The backend uses PostgreSQL.
-Make sure PostgreSQL is running and your `DATABASE_URL` (or connection settings in `database.py`) point to the correct database.
+### Health Check
+http://127.0.0.1:8000/health/db
 
-### Option 1 — Automatic (Recommended)
-From the `backend` directory, run:
+### Stop containers
+
 ```bash
-uvicorn main:app --reload
+docker compose down
 ```
 
-### Option 2 — Manual Initialization
-From the `backend` directory, run:
-```bash
-python -m backend.init_db
-uvicorn main:app --reload
-```
+### Reset database
+docker compose down -v
 
-
-
-## Running The Backend (Development)
-1. Create a virtual environment (recommended).
-2. Install dependencies listed above.
-3. Start the server using either of the options listed above.
-
-## API docs will be available at: http://127.0.0.1:8000/docs
-
-
-## Health Check
-To test database connectivity, check http://127.0.0.1:8000/health/db
-You should see "{ "ok": true }" if the database is connected.
+## Important
+Docker Desktop must be running before executing docker compose up.
+You do not need to log into Docker or create any database manually.
 
 See [docs/roadmap.md](docs/roadmap.md) for the full development plan.
 

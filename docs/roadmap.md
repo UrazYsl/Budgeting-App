@@ -62,11 +62,17 @@ Create a repeatable way to set up the database and tables so the app (and new en
 - [X] Add a script or CLI command (e.g. `python -m backend.init_db` or `init_db.py`) that creates all tables
 - [X] Document in README how to run it (e.g. "Run once before first use" or "Run after cloning")
 
-### Step 3: (Optional) Ensure database exists
+### Step 3: Ensure database exists
 - [X] Document that the PostgreSQL database must exist (e.g. created manually or via `createdb`)
 - [X] Optionally: add a small script that creates the database if it does not exist (using settings from `local_settings`)
 
-### Step 4: (Optional) Seed or migrate
+### Step 4: Docker Containerization
+- [X] Add docker-compose.yml
+- [ ] Add backend Dockerfile
+- [ ] Configure Postgres container
+- [ ] Verify stack runs with one command
+
+### Step 5: Seed or migrate
 - [ ] If needed: seed default data (e.g. default categories) in the initializer or a separate seed script
 - [ ] For later: plan for migrations (e.g. Alembic) when you change table schemas
 

@@ -1,14 +1,13 @@
 import os
 import models
-from database import engine  # <-- use your existing app engine (tables)
+from database import engine
+from seed import seed_db
 
 
 def create_tables() -> None:
-    models.Base.metadata.create_all(bind=engine)  # <-- uses database.py engine
-
+    models.Base.metadata.create_all(bind=engine)
 
 def init_db() -> None:
-    if os.getenv("DATABASE_URL"):
-        create_tables()
-        return
     create_tables()
+    seed_db(models.SessionLocal())
+    db.close()

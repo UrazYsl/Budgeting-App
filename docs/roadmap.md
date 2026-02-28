@@ -74,7 +74,7 @@ Create a repeatable way to set up the database and tables so the app (and new en
 
 ### Step 5: Seed or migrate
 - [X] If needed: seed default data (e.g. default categories) in the initializer or a separate seed script
-- [ ] For later: plan for migrations (e.g. Alembic) when you change table schemas
+- [X] For later: plan for migrations (e.g. Alembic) when you change table schemas
 
 ---
 

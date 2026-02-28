@@ -15,6 +15,7 @@ A full-stack personal budgeting app with a FastAPI backend and an Android client
 - uvicorn
 - sqlalchemy
 - psycopg[binary]
+- alembic
 
 
 ## Prerequisites
@@ -56,7 +57,34 @@ docker compose up --build
 This will:
 - Start a PostgreSQL container
 - Build and start the FastAPI backend
-- Automatically create the database tables
+- Automatically apply Alembic migrations (create/update tables)
+
+
+## Database & migrations
+
+This project uses **Alembic** for schema management.
+
+When you run:
+
+```bash
+docker compose up --build
+```
+The backend automatically runs alembic upgrade head on startup.
+
+
+## If You Change Database Models
+
+1) Generate a new migration:
+```bash
+docker compose run --rm api alembic revision --autogenerate -m "describe change"
+```
+
+2) Apply it:
+```bash
+docker compose run --rm api alembic upgrade head
+```
+
+Migration files are stored in `backend/alembic/versions/` and should be committed to version control.
 
 ### API Docs
 http://127.0.0.1:8000/docs
@@ -71,7 +99,10 @@ docker compose down
 ```
 
 ### Reset database
+```bash
 docker compose down -v
+docker compose up --build
+```
 
 See [docs/roadmap.md](docs/roadmap.md) for the full development plan.
 

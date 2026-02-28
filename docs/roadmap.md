@@ -49,7 +49,7 @@ When done, you'll be able to:
 
 ---
 
-## Phase 2: Database Initializer (Current Focus)
+## Phase 2: Database Initializer (Complete)
 
 Create a repeatable way to set up the database and tables so the app (and new environments) can run reliably.
 
@@ -78,10 +78,44 @@ Create a repeatable way to set up the database and tables so the app (and new en
 
 ---
 
+## Phase 3: Core API Expansion (Current Focus)
+
+Goal: Make the backend usable for the Android client by completing CRUD + adding practical query support.
+
+### Step 1: Accounts CRUD (Finish)
+- [X] Create account
+- [X] List accounts
+- [X] Delete account
+- [ ] Update account (rename)
+
+### Step 2: Categories CRUD (Finish)
+- [X] Create category
+- [X] List categories
+- [X] Delete category
+- [ ] Update category (rename)
+
+### Step 3: Transactions API (Make usable)
+- [X] Create transaction
+- [X] List transactions
+- [X] Delete transaction
+- [ ] Update transaction
+- [ ] Add filters to list transactions (account/category/date range)
+- [ ] Add pagination (limit/offset)
+
+### Step 4: Recurring Transactions API (Finish)
+- [X] Create recurring transaction
+- [X] List recurring transactions
+- [X] Delete recurring transaction
+- [ ] Update recurring transaction
+
+### Step 5: Documentation polish
+- [ ] Document Phase 3 endpoints in README (brief list + examples)
+
+---
+
 ## What's Next (Later)
 |    Phase    | Description                                |
 |-------------|--------------------------------------------|
-| **Phase 3** | More endpoints (accounts, categories CRUD) |
 | **Phase 4** | Automated tables (CRUD for tables)         |
 | **Phase 5** | Android app                                |
 | **Phase 6** | Deploy to server                           |

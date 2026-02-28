@@ -6,8 +6,9 @@ A full-stack personal budgeting app with a FastAPI backend and an Android client
 
 ## Status
 
-- **Phase 1 (Backend setup):** Complete — FastAPI app, DB connection, CRUD, schemas, database models (Account, Category, Transaction), and transaction endpoint.
-- **Phase 2 (Environment & Initialization):** Docker integration and reproducible database setup.
+- **Phase 1 (Backend setup):** Complete - FastAPI app, DB connection, CRUD, schemas, database models (Account, Category, Transaction), and transaction endpoint.
+- **Phase 2 (Environment & Initialization):** Complete - Docker integration and reproducible database setup.
+- **Phase 3 (Core API Expansion):** In Progress — completing update endpoints and improving transaction querying.
 
 ## Python packages
 

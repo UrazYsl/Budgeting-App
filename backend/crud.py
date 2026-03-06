@@ -1,52 +1,49 @@
 from sqlalchemy.orm import Session
 from sqlalchemy import text
+from models import Account, Category, Transaction, RecurringTransaction
+from schemas import AccountCreate, CategoryCreate
 
-def create_account(account, db: Session):
-    result = db.execute(
-        text("""
-            INSERT INTO accounts (name)
-            VALUES (:name)
-            RETURNING id, name
-        """),
-        {"name": account.name},
-    )
+def create_account(account: AccountCreate, db: Session) -> Account:
+    account = Account(name=account.name)
+    db.add(account)
     db.commit()
-    return result.mappings().one()
+    db.refresh(account)
+    return account
 
-def read_accounts(db: Session):
-    result = db.execute(text("SELECT id, name FROM accounts ORDER BY id"))
-    return result.mappings().all()
+def read_accounts(db: Session) -> list[Account]:
+    return db.query(Account).order_by(Account.id).all()
 
-def delete_account(account_id: int, db: Session):
-    # If FK is ON DELETE CASCADE on transactions.account_id,
-    # this will delete related transactions automatically.
-    result = db.execute(
-        text("DELETE FROM accounts WHERE id = :id"),
-        {"id": account_id},
-    )
+def delete_account(account_id: int, db: Session) -> int:
+    # It will ask for confirmation in the UI, so we can assume the user knows what they're doing.
+    account = db.query(Account).filter(Account.id == account_id).first()
+    if account is None:
+        return 0
+    _check_recurring_transactions(account_id, db)
+    db.delete(account)
     db.commit()
-    return result.rowcount
+    return 1
 
-
-def create_category(category, db: Session):
-    result = db.execute(
-        text("""
-            INSERT INTO categories (name)
-            VALUES (:name)
-            RETURNING id, name
-        """),
-        {"name": category.name},
-    )
+def change_account_name(account_id: int, new_name: str, db: Session) -> int:
+    account = db.query(Account).filter(Account.id == account_id).first()
+    if account is None:
+        return 0
+    account.name = new_name
     db.commit()
-    return result.mappings().one()
+    return 1
 
-def read_categories(db: Session):
-    result = db.execute(text("SELECT id, name FROM categories ORDER BY id"))
-    return result.mappings().all()
+def create_category(category: CategoryCreate, db: Session) -> Category:
+    category = Category(name=category.name)
+    db.add(category)
+    db.commit()
+    db.refresh(category)
+    return category
+
+def read_categories(db: Session) -> list[Category]:
+    return db.query(Category).order_by(Category.id).all()
 
 def delete_category(category_id: int, db: Session):
-    # If FK is ON DELETE SET DEFAULT on transactions.category_id
-    # and the default is Misc, transactions will be reassigned.
+    # It will ask for confirmation in the UI, so we can assume the user knows what they're doing.
+    # Will also change the category of any transactions with this category to misc, so we don't have to worry about orphaned transactions.
     result = db.execute(
         text("DELETE FROM categories WHERE id = :id"),
         {"id": category_id},
@@ -119,6 +116,12 @@ def read_recurring_transactions(db: Session):
         """)
     )
     return result.mappings().all()
+
+def _check_recurring_transactions(account_id: int, db: Session) -> None:
+    # Check if there are any recurring transactions associated with this account. If there are, we can't delete the account.
+    transactions = db.query(RecurringTransaction).filter(RecurringTransaction.account_id == account_id).all()
+    for tx in transactions:
+        db.delete(tx)
 
 def delete_recurring_transaction(rtx_id: int, db: Session):
     result = db.execute(

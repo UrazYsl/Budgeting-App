@@ -86,7 +86,7 @@ Goal: Make the backend usable for the Android client by completing CRUD + adding
 - [X] Create account
 - [X] List accounts
 - [X] Delete account
-- [ ] Update account (rename)
+- [X] Update account (rename)
 
 ### Step 2: Categories CRUD (Finish)
 - [X] Create category

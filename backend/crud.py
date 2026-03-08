@@ -23,7 +23,7 @@ def delete_account(account_id: int, db: Session) -> int:
     db.commit()
     return 1
 
-def change_account_name(account_id: int, new_name: str, db: Session) -> int:
+def update_account(account_id: int, new_name: str, db: Session) -> int:
     account = db.query(Account).filter(Account.id == account_id).first()
     if account is None:
         return 0
@@ -51,6 +51,14 @@ def delete_category(category_id: int, db: Session):
     db.commit()
     return result.rowcount
 
+def update_category(category_id: int, new_name: str, db: Session):
+    category = db.query(Category).filter(Category.id == category_id).first()
+    if category is None:
+        return 0
+    category.name = new_name
+
+    db.commit()
+    return 1
 
 def create_transaction(tx, db: Session):
     result = db.execute(

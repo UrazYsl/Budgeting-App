@@ -43,6 +43,13 @@ def create_account_endpoint(account: AccountCreate, db: Session = Depends(get_db
 def read_accounts_endpoint(db: Session = Depends(get_db)):
     return crud.read_accounts(db)
 
+@app.put("/accounts/{account_id}")
+def update_account_endpoint(account_id: int, new_name: str, db: Session = Depends(get_db)):
+    updated = crud.update_account(account_id, new_name, db)
+    if updated == 0:
+        raise HTTPException(status_code=404, detail="Account not found")
+    return {"updated": updated}
+
 @app.delete("/accounts/{account_id}")
 def delete_account_endpoint(account_id: int, db: Session = Depends(get_db)):
     deleted = crud.delete_account(account_id, db)

@@ -61,21 +61,12 @@ def update_category(category_id: int, new_name: str, db: Session):
     return 1
 
 def create_transaction(tx, db: Session):
-    result = db.execute(
-        text("""
-            INSERT INTO transactions (date, amount, account_id, category_id)
-            VALUES (:date, :amount, :account_id, :category_id)
-            RETURNING id, date, amount, account_id, category_id
-        """),
-        {
-            "date": tx.date,
-            "amount": tx.amount,
-            "account_id": tx.account_id,
-            "category_id": tx.category_id,
-        },
-    )
+    def create_category(transaction: TransactionCreate, db: Session) -> Transaction:
+    transaction = Transaction(name=transaction.name)
+    db.add(transaction)
     db.commit()
-    return result.mappings().one()
+    db.refresh(transaction)
+    return transaction
 
 def read_transactions(db: Session):
     result = db.execute(

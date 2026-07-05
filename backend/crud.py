@@ -1,6 +1,6 @@
 from datetime import date, timedelta
 from dateutil.relativedelta import relativedelta
-from sqlalchemy import select, delete, func, extract
+from sqlalchemy import select, delete, func, extract, case
 from sqlalchemy.orm import Session
 from models import Account, Budget, Category, Transaction, RecurringTransaction
 from schemas import AccountCreate, CategoryCreate
@@ -235,7 +235,9 @@ def get_account_balances(db: Session) -> list[dict]:
         select(
             Account.id.label("account_id"),
             Account.name.label("account_name"),
-            func.coalesce(func.sum(Transaction.amount), 0.0).label("balance"),
+            func.coalesce(func.sum(
+                case((Transaction.type == "income", Transaction.amount), else_=-Transaction.amount)
+            ), 0.0).label("balance"),
         )
         .outerjoin(Transaction, (Transaction.account_id == Account.id) & (Transaction.date <= date.today()))
         .group_by(Account.id, Account.name)

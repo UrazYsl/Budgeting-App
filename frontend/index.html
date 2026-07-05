@@ -264,9 +264,9 @@
                                 </template>
                             </select>
                         </div>
-                        <div class="form-group">
+                        <div class="form-group" x-show="txForm.type === 'expense'">
                             <label>Category</label>
-                            <select x-model="txForm.category_id" required>
+                            <select x-model="txForm.category_id" :required="txForm.type === 'expense'">
                                 <template x-for="c in categories" :key="c.id">
                                     <option :value="c.id" x-text="c.name"></option>
                                 </template>

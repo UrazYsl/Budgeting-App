@@ -43,7 +43,11 @@ fi
 # ── .env ──
 if [ ! -f "$SCRIPT_DIR/.env" ]; then
     cp "$SCRIPT_DIR/.env.example" "$SCRIPT_DIR/.env"
-    echo "Created .env from .env.example. Edit it to set your password and timezone."
+    echo ""
+    echo ".env created from .env.example."
+    echo "  → Edit it now to set your password and timezone, then run ./start.sh again."
+    echo ""
+    exit 0
 fi
 
 # ── Hostname (read from .env, default: budget) ──

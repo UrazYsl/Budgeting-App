@@ -214,6 +214,7 @@ def get_monthly_summary(db: Session, year: int, month: int) -> dict:
         ).where(
             extract("year", Transaction.date) == year,
             extract("month", Transaction.date) == month,
+            Transaction.date <= date.today(),
         ).group_by(Transaction.type)
     ).all()
     totals = {row.type: row.total for row in rows}
@@ -236,7 +237,7 @@ def get_account_balances(db: Session) -> list[dict]:
             Account.name.label("account_name"),
             func.coalesce(func.sum(Transaction.amount), 0.0).label("balance"),
         )
-        .outerjoin(Transaction, Transaction.account_id == Account.id)
+        .outerjoin(Transaction, (Transaction.account_id == Account.id) & (Transaction.date <= date.today()))
         .group_by(Account.id, Account.name)
         .order_by(Account.id)
     ).all()
@@ -262,8 +263,10 @@ def get_category_totals(db: Session, year: int, month: int) -> list[dict]:
         .outerjoin(
             Transaction,
             (Transaction.category_id == Category.id)
+            & (Transaction.type == "expense")
             & (extract("year", Transaction.date) == year)
-            & (extract("month", Transaction.date) == month),
+            & (extract("month", Transaction.date) == month)
+            & (Transaction.date <= date.today()),
         )
         .group_by(Category.id, Category.name)
         .order_by(Category.id)
